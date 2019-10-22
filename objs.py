@@ -1,4 +1,4 @@
-import pygame, sys, time
+import pygame, sys, time, random
 from pygame import *
 
 class Config:
@@ -14,17 +14,33 @@ class Config:
     self.grid_color = (166, 166, 166)
     self.text_color = (255, 255, 255)
 
+class Stats:
+  def __init__(self):
+    self.active = False
+    self.o_wins = 0
+    self.x_wins = 0
+  
+  def reset(self):
+    self.o_wins = 0
+    self.x_wins = 0
+
 
 class Board(Sprite):
-  def __init__(self, config):
+  def __init__(self, config, screen):
     super().__init__()
+    self.screen = screen
+    self.screen_rect = screen.get_rect()
+    self.image = None
+    self.rect = self.image.get_rect()
     self.grid = [' ']*9
 
   def place(self, pos, let):
     self.grid[pos] = let
-    
+
   def check(self):
     pass
+
+  def blitme(self):
+    self.screen.blit(self.image, self.rect)
+
   
-  def update(self):
-    pass
